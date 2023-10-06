@@ -3,8 +3,8 @@ name: CI/CD Pipeline
 on: 
   push: 
     branches:
-      - Feature
-      - Development
+      - feature
+      - development
 
 jobs: 
   unit-tests:
@@ -64,9 +64,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build image
-        run: docker build -t ghcr.io/daniagain/singlaslant-github-actions-individual:Development -f Dockerfile .
+        run: docker build -t ghcr.io/daniagain/singlaslant-github-actions-individual:development -f Dockerfile .
       - name: Push image
-        run: docker push ghcr.io/daniagain/singlaslant-github-actions-individual:Development
+        run: docker push ghcr.io/daniagain/singlaslant-github-actions-individual:development
 
   fake-deployment: 
     runs-on: ubuntu-latest
@@ -74,4 +74,4 @@ jobs:
 
     steps:
     - name: Fake Deployment
-      run: echo "ghcr.io/umm-a/singlaslant-github-actions:Development"
+      run: echo "ghcr.io/umm-a/singlaslant-github-actions:development"
