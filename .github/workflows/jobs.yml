@@ -77,5 +77,8 @@ jobs:
     needs: docker
 
     steps:
+    - name: Get branch name
+      id: branchname
+      run: echo "::set-output name=branch::$(echo $GITHUB_REF | awk -F'/' '{print $NF}')"
     - name: Fake Deployment
       run: echo "ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }}"
