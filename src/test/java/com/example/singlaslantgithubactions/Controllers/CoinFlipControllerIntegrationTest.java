@@ -44,4 +44,9 @@ public class CoinFlipControllerIntegrationTest {
         this.mockMvc.perform(get("/"))
                 .andExpect(content().string(containsString("Coin Flip Game")));
     }
+
+    @Test
+    void intentionallyFailingTest() {
+        assertEquals(1, 2);
+    }
 }
