@@ -5,6 +5,7 @@ on:
     branches:
       - feature
       - development
+      - test
 
 jobs: 
   unit-tests:
