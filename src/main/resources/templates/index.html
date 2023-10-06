@@ -21,10 +21,10 @@
 <div th:text="${WINNER}"></div>
 <table>
     <tr>
-        <th>Round</th>
-        <th>User's Choice</th>
-        <th>Computer's Choice</th>
-        <th>Winner</th>
+        <th>R</th>
+        <th>UC</th>
+        <th>CC</th>
+        <th>W</th>
     </tr>
     <tr th:each="round, roundStat : ${rounds}">
         <td th:text="${roundStat.index + 1}"></td>
