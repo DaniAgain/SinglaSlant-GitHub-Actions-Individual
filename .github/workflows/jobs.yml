@@ -1,7 +1,11 @@
+name: CI/CD Pipeline
+
 on: 
   push: 
     branches:
-      - Development
+      - feature
+      - development
+      - test
 
 jobs: 
   unit-tests:
@@ -58,17 +62,23 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.SUPER_SECRET }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Get branch name
+        id: branchname
+        run: echo "::set-output name=branch::$(echo $GITHUB_REF | awk -F'/' '{print $NF}')"
       - name: Build image
-        run: docker build -t ghcr.io/umm-a/singlaslant-github-actions:Development -f Dockerfile .
+        run: docker build -t ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }} -f Dockerfile .
       - name: Push image
-        run: docker push ghcr.io/umm-a/singlaslant-github-actions:Development
+        run: docker push ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }}
 
   fake-deployment: 
     runs-on: ubuntu-latest
     needs: docker
 
     steps:
+    - name: Get branch name
+      id: branchname
+      run: echo "::set-output name=branch::$(echo $GITHUB_REF | awk -F'/' '{print $NF}')"
     - name: Fake Deployment
-      run: echo "ghcr.io/umm-a/singlaslant-github-actions:Development"
+      run: echo "ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }}"
