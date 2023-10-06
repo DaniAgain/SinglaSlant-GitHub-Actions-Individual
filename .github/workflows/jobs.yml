@@ -63,10 +63,13 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Get branch name
+        id: branchname
+        run: echo "::set-output name=branch::$(echo $GITHUB_REF | awk -F'/' '{print $NF}')"
       - name: Build image
-        run: docker build -t ghcr.io/daniagain/singlaslant-github-actions-individual:development -f Dockerfile .
+        run: docker build -t ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }} -f Dockerfile .
       - name: Push image
-        run: docker push ghcr.io/daniagain/singlaslant-github-actions-individual:development
+        run: docker push ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }}
 
   fake-deployment: 
     runs-on: ubuntu-latest
@@ -74,4 +77,4 @@ jobs:
 
     steps:
     - name: Fake Deployment
-      run: echo "ghcr.io/umm-a/singlaslant-github-actions:development"
+      run: echo "ghcr.io/umm-a/singlaslant-github-actions:${{ steps.branchname.outputs.branch }}"
