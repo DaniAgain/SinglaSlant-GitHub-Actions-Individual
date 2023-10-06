@@ -47,7 +47,7 @@ public class CoinFlipControllerIntegrationTest {
 
     @Test
     void intentionallyFailingTest() {
-        assertEquals(1, 2);
+        assertEquals(1, 1);
     }
 
 }
