@@ -78,4 +78,4 @@ jobs:
 
     steps:
     - name: Fake Deployment
-      run: echo "ghcr.io/umm-a/singlaslant-github-actions:${{ steps.branchname.outputs.branch }}"
+      run: echo "ghcr.io/daniagain/singlaslant-github-actions-individual:${{ steps.branchname.outputs.branch }}"
